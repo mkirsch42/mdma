@@ -44,8 +44,8 @@ pub async fn generations_list(State(state): State<crate::AppState>) -> Markup {
     .await
     .unwrap();
 
-    let total_members: i64 = generations.iter().map(|gen| gen.total_members).sum();
-    let active_members: i64 = generations.iter().map(|gen| gen.active_members).sum();
+    let total_members: i64 = generations.iter().map(|genn| genn.total_members).sum();
+    let active_members: i64 = generations.iter().map(|genn| genn.active_members).sum();
     let all_emails = generations
         .iter()
         .map(|genn| genn.active_emails.join(";"))
@@ -64,25 +64,25 @@ pub async fn generations_list(State(state): State<crate::AppState>) -> Markup {
                 th {"Actions"}
             }
             tbody {
-                @for gen in generations {
+                @for genn in generations {
                     tr {
-                        td {(gen.id)}
-                        td {(gen.title)}
-                        td {(gen.start_date)}
-                        td {(gen.total_members)}
-                        td {(gen.active_members)}
-                        td {(format!("{:.1}", gen.percent_active() * 100.0)) "%"}
+                        td {(genn.id)}
+                        td {(genn.title)}
+                        td {(genn.start_date)}
+                        td {(genn.total_members)}
+                        td {(genn.active_members)}
+                        td {(format!("{:.1}", genn.percent_active() * 100.0)) "%"}
                         td ."*:mx-1" {
                             ."tooltip" data-tip="Email Active Members" {
                                 a ."btn"."btn-circle"."btn-outline"."btn-secondary"
-                                    href={"mailto:?bcc=" (gen.active_emails.join(","))}
+                                    href={"mailto:?bcc=" (genn.active_emails.join(","))}
                                     { (icons::envelope()) }
 
                             }
                             ."tooltip" data-tip="Copy Active Member Emails" {
                                 a ."btn"."btn-circle"."btn-outline"."btn-secondary"
                                     href="#"
-                                    onclick={"navigator.clipboard.writeText('" (gen.active_emails.join(",")) "')"}
+                                    onclick={"navigator.clipboard.writeText('" (genn.active_emails.join(",")) "')"}
                                     { (icons::copy()) }
                             }
                         }
