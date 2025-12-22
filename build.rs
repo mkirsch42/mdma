@@ -5,9 +5,9 @@ fn main() {
 }
 
 fn run_tailwind() {
-    println!(
-        "{}",
-        std::env::var("DATABASE_URL").unwrap_or("DATABASE_URL undefined".to_string())
+    eprintln!(
+        "DATABASE_URL = {}",
+        std::env::var("DATABASE_URL").unwrap_or("undefined".to_string())
     );
     let result = Command::new("npx")
         .args(["tailwindcss", "-i", "styles.css", "-o", "static/styles.css"])
