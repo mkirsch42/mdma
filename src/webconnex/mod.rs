@@ -6,23 +6,25 @@ mod recurring_payment_success;
 mod redirect;
 mod request_payload;
 
-use axum::{middleware::from_fn_with_state, routing::post, Router};
+use axum::{Router, middleware::from_fn_with_state, routing::post};
 
-use self::auth::{ver_sig, VerifySigState};
+use self::auth::{VerifySigState, ver_sig};
 
 pub fn router(state: crate::AppState) -> Router {
     let new_member_ver_state = VerifySigState {
         hmac_secret: state
             .secret_store
             .get("WC_NEWMEMBER_HMAC")
-            .expect("Couldn't find secret WC_NEWMEMBER_HMAC"),
+            .expect("Couldn't find secret WC_NEWMEMBER_HMAC")
+            .clone(),
     };
 
     let recurring_success_ver_state = VerifySigState {
         hmac_secret: state
             .secret_store
             .get("WC_RECURRINGSUCCESS_HMAC")
-            .expect("Couldn't find secret WC_RECURRINGSUCCESS_HMAC"),
+            .expect("Couldn't find secret WC_RECURRINGSUCCESS_HMAC")
+            .clone(),
     };
 
     Router::new()

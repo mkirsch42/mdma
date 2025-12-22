@@ -28,12 +28,6 @@ serde-inline-default = "0.2.3"
 serde_json = "1.0.140"
 serenity = { version = "0.12.2", features = ["interactions_endpoint"] }
 sha2 = "0.10.8"
-shuttle-axum = { version = "0.53.0" }
-shuttle-runtime = "0.53.0"
-shuttle-shared-db = { version = "0.53.0", features = [
-    "postgres",
-    "sqlx-native-tls",
-] }
 sqlx = { version = "0.8.3", features = [
     "runtime-tokio-native-tls",
     "postgres",

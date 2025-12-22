@@ -1,4 +1,4 @@
-use axum::{middleware::from_fn_with_state, routing::post, Router};
+use axum::{Router, middleware::from_fn_with_state, routing::post};
 
 mod auth;
 pub mod new_donation;
@@ -15,7 +15,7 @@ pub fn router(state: crate::AppState) -> Router {
     Router::new()
         .route("/new-donation", post(new_donation::webhook_handler))
         .route_layer(from_fn_with_state(
-            state.secret_store.get("DONORBOX_HMAC").unwrap(),
+            state.secret_store.get("DONORBOX_HMAC").unwrap().clone(),
             auth::ver_sig,
         ))
         .with_state(state.clone())

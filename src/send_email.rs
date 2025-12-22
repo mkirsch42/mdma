@@ -1,7 +1,7 @@
 use lettre::{
+    AsyncSmtpTransport, Message, Tokio1Executor,
     message::{Mailbox, SinglePart},
     transport::smtp::authentication::{Credentials, Mechanism},
-    AsyncSmtpTransport, Message, Tokio1Executor,
 };
 use oauth2::{AccessToken, RefreshToken, TokenResponse};
 use serde::{Deserialize, Serialize};
@@ -85,7 +85,11 @@ async fn get_access_token(state: &crate::AppState) -> Result<AccessToken, String
     state
         .google_oauth
         .exchange_refresh_token(&RefreshToken::new(
-            state.secret_store.get("GMAIL_OAUTH_REFRESH_TOKEN").unwrap(),
+            state
+                .secret_store
+                .get("GMAIL_OAUTH_REFRESH_TOKEN")
+                .unwrap()
+                .clone(),
         ))
         .request_async(oauth2::reqwest::async_http_client)
         .await
@@ -101,7 +105,7 @@ pub async fn build_mailer(
             .map_err(|err| err.to_string())?
             .authentication(vec![Mechanism::Xoauth2])
             .credentials(Credentials::new(
-                state.secret_store.get("GMAIL_USERNAME").unwrap(),
+                state.secret_store.get("GMAIL_USERNAME").unwrap().clone(),
                 get_access_token(state).await?.secret().clone(),
             ))
             .build(),

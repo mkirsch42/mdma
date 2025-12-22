@@ -1,13 +1,13 @@
-use std::{str::FromStr, sync::Arc};
+use std::{collections::HashMap, str::FromStr, sync::Arc};
 
 use axum::{
+    Router,
     response::{IntoResponse, Redirect, Response},
     routing::{get, post},
-    Router,
 };
 use axum_extra::extract::CookieJar;
 use maud::html;
-use shuttle_runtime::{CustomError, SecretStore};
+use sqlx::PgPool;
 use tower_http::services::ServeDir;
 
 mod admin;
@@ -24,7 +24,7 @@ mod webconnex;
 #[derive(Clone)]
 struct AppState {
     db_pool: sqlx::PgPool,
-    secret_store: SecretStore,
+    secret_store: HashMap<String, String>,
     google_oauth: oauth2::basic::BasicClient,
     http_client: reqwest::Client,
     discord_verifier: serenity::interactions_endpoint::Verifier,
@@ -45,24 +45,25 @@ async fn home(cookies: CookieJar) -> Response {
     }
 }
 
-#[shuttle_runtime::main]
-async fn main(
-    #[shuttle_shared_db::Postgres] db_pool: sqlx::PgPool,
-    #[shuttle_runtime::Secrets] secret_store: SecretStore,
-) -> shuttle_axum::ShuttleAxum {
-    sqlx::migrate!()
-        .run(&db_pool)
+#[tokio::main]
+async fn main() {
+    let secret_store = std::env::vars().collect::<HashMap<_, _>>();
+    let db_pool = PgPool::connect(std::env::var("POSTGRES_DATABASE").as_ref().unwrap())
         .await
-        .map_err(CustomError::new)?;
+        .unwrap();
+    sqlx::migrate!().run(&db_pool).await.unwrap();
 
     // tracing_subscriber::fmt()
     //     .with_max_level(tracing::Level::DEBUG)
     //     .init();
 
     let google_oauth = auth::oauth_client(
-        secret_store.get("GOOGLE_OAUTH_CLIENT_ID").unwrap(),
-        secret_store.get("GOOGLE_OAUTH_CLIENT_SECRET").unwrap(),
-        secret_store.get("GOOGLE_OAUTH_REDIRECT").unwrap(),
+        secret_store.get("GOOGLE_OAUTH_CLIENT_ID").unwrap().clone(),
+        secret_store
+            .get("GOOGLE_OAUTH_CLIENT_SECRET")
+            .unwrap()
+            .clone(),
+        secret_store.get("GOOGLE_OAUTH_REDIRECT").unwrap().clone(),
     );
 
     let discord_verifier = serenity::interactions_endpoint::Verifier::new(
@@ -109,5 +110,6 @@ async fn main(
         .nest("/.donorbox", donorbox::router(state.clone()))
         .nest_service("/assets", ServeDir::new("static"));
 
-    Ok(router.into())
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:80").await.unwrap();
+    axum::serve(listener, router).await.unwrap();
 }
