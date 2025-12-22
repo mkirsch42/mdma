@@ -5,12 +5,14 @@ fn main() {
 }
 
 fn run_tailwind() {
-    eprintln!(
-        "DATABASE_URL = {}",
-        std::env::var("DATABASE_URL").unwrap_or("undefined".to_string())
-    );
     let result = Command::new("npx")
-        .args(["tailwindcss", "-i", "styles.css", "-o", "static/styles.css"])
+        .args([
+            "@tailwindcss/cli",
+            "-i",
+            "styles.css",
+            "-o",
+            "static/styles.css",
+        ])
         .output();
     match result {
         Ok(output) => {

@@ -19,7 +19,7 @@
         defaultPackage = naersk-lib.buildPackage ./.;
         devShell = with pkgs;
           mkShell {
-            buildInputs = [cargo rust-analyzer rustc rustfmt pre-commit rustPackages.clippy openssl pkg-config postgresql];
+            buildInputs = [cargo rust-analyzer rustc rustfmt pre-commit rustPackages.clippy openssl pkg-config postgresql nodejs];
             RUST_SRC_PATH = rustPlatform.rustLibSrc;
             shellHook = ''
               export NIX_SHELL_DIR=$PWD/.nixshell
