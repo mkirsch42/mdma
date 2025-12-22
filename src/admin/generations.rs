@@ -48,12 +48,12 @@ pub async fn generations_list(State(state): State<crate::AppState>) -> Markup {
     let active_members: i64 = generations.iter().map(|gen| gen.active_members).sum();
     let all_emails = generations
         .iter()
-        .map(|gen| gen.active_emails.join(";"))
+        .map(|genn| genn.active_emails.join(";"))
         .collect::<Vec<String>>()
         .join(";");
 
     html! {
-        table #"generations-list"."table"."mx-auto" {
+        table # "generations-list"."table"."mx-auto" {
             thead {
                 th {}
                 th {"Name"}

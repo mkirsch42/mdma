@@ -13,8 +13,8 @@ use crate::{
 };
 
 pub async fn search_form(nest: NestedPath, Query(params): Query<PaymentsQuery>) -> Markup {
-    html! { #"payments_list" ."w-full"."max-w-4xl"."mx-auto" {
-        #"payments_search" ."card"."bg-base-200"."w-full"."border"."border-secondary" {
+    html! { # "payments_list" ."w-full"."max-w-4xl"."mx-auto" {
+        # "payments_search" ."card"."bg-base-200"."w-full"."border"."border-secondary" {
             form hx-get={(nest.as_str())"/search"} hx-target="#payments_search_results" hx-push-url="true" ."card-body" {
                 ."card-title" {"Search Payments"}
                 label ."input"."input-bordered"."flex"."items-center"."gap-2" {
@@ -43,7 +43,7 @@ pub async fn search_form(nest: NestedPath, Query(params): Query<PaymentsQuery>) 
             }
         }
         ."divider" {}
-        #"payments_search_results" hx-get={(nest.as_str())"/search"} hx-trigger="load" hx-vals=(serde_json::to_string(&params).unwrap()) {}
+        # "payments_search_results" hx-get={(nest.as_str())"/search"} hx-trigger="load" hx-vals=(serde_json::to_string(&params).unwrap()) {}
     } }
 }
 
@@ -122,7 +122,7 @@ pub async fn search_results(
             }
         }}
         ."divider" {}
-        #"payments_pagination" ."join"."join-vertical"."md:join-horizontal"."justify-center"."w-full"."items-center" {
+        # "payments_pagination" ."join"."join-vertical"."md:join-horizontal"."justify-center"."w-full"."items-center" {
             (pagebtn(prev, "Previous"))
             ."btn"."btn-outline"."join-item"."w-1/4"."!text-neutral-content" disabled {
                 (params.offset + 1)" - "(params.offset + (payments.len() as u64))" of "(total)

@@ -36,8 +36,8 @@ pub async fn members_list(
     .unwrap();
 
     html! {
-    #"members-list" ."w-full"."max-w-xl"."mx-auto" {
-        #"members-search" ."collapse"."collapse-arrow"."bg-base-200"."my-2"."border"."border-secondary" {
+    # "members-list" ."w-full"."max-w-xl"."mx-auto" {
+        # "members-search" ."collapse"."collapse-arrow"."bg-base-200"."my-2"."border"."border-secondary" {
             input type="radio" name="members-list-accordion" checked;
             ."collapse-title"."text-xl"."font-medium" {"Search Members"}
             ."collapse-content" {
@@ -75,8 +75,8 @@ pub async fn members_list(
                             span ."label-text" {"Generation"}
                             select name="generation_id" ."select"."select-bordered" {
                                 option value="-1" {"(Any Generation)"}
-                                @for gen in generation_options {
-                                    option value=(gen.id) selected[gen.id==params.generation_id] {(gen.description)}
+                                @for genn in generation_options {
+                                    option value=(genn.id) selected[genn.id==params.generation_id] {(genn.description)}
                                 }
                             }
                         }
@@ -104,10 +104,10 @@ pub async fn members_list(
             }
         }
         ."divider" {}
-        #"members-search-results" hx-get={(nest.as_str())"/search"} hx-trigger="load" hx-vals=(serde_json::to_string(&params).unwrap())  {}
+        # "members-search-results" hx-get={(nest.as_str())"/search"} hx-trigger="load" hx-vals=(serde_json::to_string(&params).unwrap())  {}
     }
 
-    #"action_buttons" hx-swap-oob="innerHTML" {
+    # "action_buttons" hx-swap-oob="innerHTML" {
         button ."btn"."btn-circle"."btn-outline"."btn-accent"
             onclick="openModal()" hx-get={(nest.as_str())"/create"} hx-target="#modal-content"
             {(icons::plus())}
@@ -167,7 +167,7 @@ pub async fn search_results(
             }
         }
         ."divider" {}
-        #"members-pagination" ."join"."join-vertical"."md:join-horizontal"."justify-center"."w-full"."items-center" {
+        # "members-pagination" ."join"."join-vertical"."md:join-horizontal"."justify-center"."w-full"."items-center" {
             (pagebtn(prev, "Previous"))
             ."btn"."btn-outline"."join-item"."w-1/4"."!text-neutral-content" disabled {
                 (params.offset + 1)" - "(params.offset + (members.len() as u64))" of "(total)

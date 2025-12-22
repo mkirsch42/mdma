@@ -67,7 +67,7 @@ pub async fn add_member(
     .map_err_response(crate::err_responses::ErrorResponse::Alert)?;
 
     Ok(html! {
-        #"reload-list" hx-get={(nest.as_str())} hx-vals=(format!(r#"{{"search": "{}"}}"#, form.email)) hx-target="#members-list" hx-trigger="load" hx-swap="outerHTML" { progress ."progress"."mt-6" {} }
+        # "reload-list" hx-get={(nest.as_str())} hx-vals=(format!(r#"{{"search": "{}"}}"#, form.email)) hx-target="#members-list" hx-trigger="load" hx-swap="outerHTML" { progress ."progress"."mt-6" {} }
         script { "$('#modal')[0].close();" }
 
         (components::ToastAlert::Success(&format!("{}, {} Added Successfully", form.last_name, form.first_name)))

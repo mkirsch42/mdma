@@ -25,7 +25,7 @@ pub async fn bulk_update_form(nest: NestedPath) -> Markup {
             ."collapse-content" {
                 a href="https://manage.webconnex.com/reports/donations" target="_blank" ."btn"."btn-neutral" {"Open Donations Page"}
                 p {"Click \"Export\" in the top right of the donations page to download all donation records"}
-                form #"givingfuel-bulk-import-form"."mt-8" hx-encoding="multipart/form-data" hx-post={(nest.as_str())"/.givingfuel_bulk_import"} {
+                form # "givingfuel-bulk-import-form"."mt-8" hx-encoding="multipart/form-data" hx-post={(nest.as_str())"/.givingfuel_bulk_import"} {
                     input type="file" name="file" ."file-input"."file-input-bordered"."file-input-primary"."w-full";
                     label ."form-control"."w-full" {
                         ."label" { span ."label-text" {"Enter your email to prove you know what you're doing..."} }
@@ -39,10 +39,10 @@ pub async fn bulk_update_form(nest: NestedPath) -> Markup {
             input type="checkbox";
             ."collapse-title"."text-xl"."font-medium" {"Donorbox Donations Import"}
             ."collapse-content" {
-                form #"donorbox-bulk-import-form" hx-encoding="multipart/form-data" hx-post={(nest.as_str())"/.donorbox_bulk_import"} {
+                form # "donorbox-bulk-import-form" hx-encoding="multipart/form-data" hx-post={(nest.as_str())"/.donorbox_bulk_import"} {
                     label ."form-control"."w-full" {
                         ."label"."cursor-pointer" { span ."label-text" {"Start Date"} }
-                        input type="date" name="start-date" required #"donorbox_bulk_import__start_date" ."input"."input-bordered"."cursor-pointer";
+                        input type="date" name="start-date" required # "donorbox_bulk_import__start_date" ."input"."input-bordered"."cursor-pointer";
                         script {"$('#donorbox_bulk_import__start_date')[0].valueAsDate = new Date();"}
                     }
                     label ."form-control"."w-full" {

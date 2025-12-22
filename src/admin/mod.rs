@@ -31,7 +31,7 @@ fn home(nest: &str, load_main: Option<Uri>) -> Markup {
             }
         },
         load_main.map(|uri| {
-            html! { #"lazy-load-contents" hx-get=(uri) hx-trigger="load" hx-swap="outerHTML" hx-headers=r#"{"X-Rebuild-Page": true}"# { progress ."progress"."mt-6" {} } }
+            html! { # "lazy-load-contents" hx-get=(uri) hx-trigger="load" hx-swap="outerHTML" hx-headers=r#"{"X-Rebuild-Page": true}"# { progress ."progress"."mt-6" {} } }
         }),
     )
 }

@@ -57,7 +57,7 @@ pub async fn payment_form(
             ."form-control" {
                 label ."label"."cursor-pointer" {
                     span ."label-text" {"Effective On"}
-                    input type="date" name="effective_on" required #"modal_add_payment__effective_on" ."input"."input-bordered";
+                    input type="date" name="effective_on" required # "modal_add_payment__effective_on" ."input"."input-bordered";
                     script {"$('#modal_add_payment__effective_on')[0].valueAsDate = new Date();"}
                 }
             }

@@ -19,18 +19,18 @@ pub fn layout(navbar_options: Markup, main_content: Option<Markup>) -> Markup {
                 header ."navbar"."bg-base-300"."lg:rounded-box"."lg:m-3"."lg:w-auto" {
                     (navbar_options)
                 }
-                main #"main_content" ."my-2"."lg:mx-4" hx-on--before-swap="event.target == this && $('#action_buttons').empty()" { @if let Some(content) = main_content { (content) } }
-                dialog #"modal"."modal"."modal-bottom"."sm:modal-middle" {
+                main # "main_content" ."my-2"."lg:mx-4" hx-on--before-swap="event.target == this && $('#action_buttons').empty()" { @if let Some(content) = main_content { (content) } }
+                dialog # "modal"."modal"."modal-bottom"."sm:modal-middle" {
                     ."modal-box" {
                         form method="dialog" { button ."btn"."btn-sm"."btn-circle"."btn-ghost"."absolute"."right-2"."top-2" {"✕"} }
-                        progress #"modal-loading"."progress"."mt-6"."[&:has(+#modal-content:not(:empty)):not(.htmx-request)]:hidden" {}
-                        div #"modal-content" {}
+                        progress # "modal-loading"."progress"."mt-6"."[&:has(+#modal-content:not(:empty)):not(.htmx-request)]:hidden" {}
+                        div # "modal-content" {}
                     }
                     script {(PreEscaped("function openModal() { $('#modal-content').empty(); $('#modal')[0].showModal(); }"))}
                     form method="dialog" ."modal-backdrop" { button {"CLOSE"} }
                 }
-                #"alerts"."toast"."*:w-fit"."items-end" {
-                    #"action_buttons" ."*:ml-2" {}
+                # "alerts"."toast"."*:w-fit"."items-end" {
+                    # "action_buttons" ."*:ml-2" {}
                 }
                 script src="https://unpkg.com/htmx.org@2.0.1" {}
                 script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" {}

@@ -66,7 +66,7 @@ pub async fn email_addresses_form(
     )
     .unwrap_or_default();
     html! {
-        #"email_addresses_results" {}
+        # "email_addresses_results" {}
         form hx-post={(nest.as_str())"/email_addresses"} hx-target="#email_addresses_results" {
             label ."form-control"."w-full"."max-w-lg"."mx-auto" {
                 ."label" { span ."label-text" {"From"} }

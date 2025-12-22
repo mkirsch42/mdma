@@ -6,7 +6,7 @@ use crate::icons;
 mod emails;
 
 async fn home(nest: NestedPath) -> Markup {
-    html! { #"mdma-config" ."w-full"."max-w-4xl"."mx-auto" {
+    html! { # "mdma-config" ."w-full"."max-w-4xl"."mx-auto" {
         ."alert"."alert-warning"."w-full"."max-w-xl"."mx-auto" role="warning" {
             (icons::warning())
             span {"Warning: Here be dragons! 🐉 Seriously, make sure you know what you're doing on this page..."}
