@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": " UPDATE members\n            SET\n                cancelled = TRUE,\n                notes = TRIM(E'\\n' FROM notes || E'\\n\\n=== ' || CURRENT_DATE || E' ===\\n' || $2)\n            WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "c3af33ac549dea2248a38633639580220acf1637366d3aa44ae9d9b3e6c993b5"
+}

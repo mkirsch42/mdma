@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO email_addresses (id, value) VALUES ($1, $2) ON CONFLICT (id) DO UPDATE SET value = excluded.value",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "5dc6760232992819b80264cff5e9a2044e1029d132a921a610fa55d6e90e076b"
+}

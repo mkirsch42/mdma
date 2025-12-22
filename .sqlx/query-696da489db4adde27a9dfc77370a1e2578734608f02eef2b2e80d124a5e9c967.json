@@ -1,0 +1,28 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO payments (member_id, effective_on, duration_months, amount_paid, payment_method, transaction_id, notes)\n            VALUES              ($1,        $2,           $3,              $4,          $5,             $6,             $7)\n            RETURNING id",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Date",
+        "Int4",
+        "Numeric",
+        "Text",
+        "Int4",
+        "Text"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "696da489db4adde27a9dfc77370a1e2578734608f02eef2b2e80d124a5e9c967"
+}

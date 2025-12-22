@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO payments (member_id, effective_on, amount_paid, payment_method, transaction_id)\n                SELECT               id,        $2,           $3,          'webconnex',    $4\n                FROM members\n                WHERE email = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Date",
+        "Numeric",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "4bd5da6d7704ce2ca914625571d51046803cc74a47a11243f40abf56093e91f7"
+}

@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO email_templates (id, template) VALUES ($1, $2) ON CONFLICT (id) DO UPDATE SET template = excluded.template",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "0ba927cb01a086a0d8c6d9372adbf40251d60f6a569f054be93d1e8ba3170d46"
+}

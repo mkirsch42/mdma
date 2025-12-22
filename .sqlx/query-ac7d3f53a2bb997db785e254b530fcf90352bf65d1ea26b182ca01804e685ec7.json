@@ -1,0 +1,24 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO members (email, first_name, last_name)\n        SELECT $1, $2, $3\n        WHERE NOT EXISTS (SELECT * FROM members WHERE email = $1)\n        ON CONFLICT DO NOTHING\n        RETURNING id",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text",
+        "Text"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "ac7d3f53a2bb997db785e254b530fcf90352bf65d1ea26b182ca01804e685ec7"
+}

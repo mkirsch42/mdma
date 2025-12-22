@@ -1,0 +1,31 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO payments (member_id, amount_paid, payment_method, transaction_id, effective_on)\n            SELECT               id,        $2,          'donorbox',     $3,             $4\n            FROM members\n            WHERE email = $1\n                AND NOT EXISTS (SELECT 1 FROM payments WHERE payment_method = 'donorbox' AND transaction_id = $3)\n        RETURNING id, member_id",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "member_id",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Numeric",
+        "Int4",
+        "Date"
+      ]
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "8979fd818b5136349e82266278e32de267cc5e1e27bcf7f2fc77c51072f3f31c"
+}

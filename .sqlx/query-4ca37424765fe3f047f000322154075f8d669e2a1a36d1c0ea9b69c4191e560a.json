@@ -1,0 +1,106 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT * FROM members NATURAL JOIN member_details WHERE discord=$1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "email",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "first_name",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "last_name",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "created_on",
+        "type_info": "Date"
+      },
+      {
+        "ordinal": 5,
+        "name": "discord",
+        "type_info": "Numeric"
+      },
+      {
+        "ordinal": 6,
+        "name": "notes",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 7,
+        "name": "cancelled",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 8,
+        "name": "banned",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 9,
+        "name": "generation_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 10,
+        "name": "generation_name",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 11,
+        "name": "consecutive_since",
+        "type_info": "Date"
+      },
+      {
+        "ordinal": 12,
+        "name": "consecutive_until",
+        "type_info": "Date"
+      },
+      {
+        "ordinal": 13,
+        "name": "is_active",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 14,
+        "name": "first_payment",
+        "type_info": "Date"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Numeric"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "4ca37424765fe3f047f000322154075f8d669e2a1a36d1c0ea9b69c4191e560a"
+}

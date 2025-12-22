@@ -1,0 +1,50 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT \n            id AS \"id!\",\n            total_members AS \"total_members!\",\n            active_members AS \"active_members!\",\n            COALESCE(active_emails, '{}') AS \"active_emails!\",\n            title,\n            start_date\n        FROM \n            (SELECT generation_id AS id,\n                    COUNT(*) AS total_members,\n                    COUNT(*) FILTER (WHERE is_active(id)) AS active_members,\n                    ARRAY_AGG(CONCAT(first_name, ' ', last_name, ' <', email, '>')) FILTER (WHERE is_active(id)) AS active_emails\n            FROM member_generations\n                INNER JOIN members ON members.id = member_id\n            GROUP BY generation_id) temp1\n        INNER JOIN generations USING (id)\n        ORDER BY start_date ASC",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id!",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "total_members!",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 2,
+        "name": "active_members!",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 3,
+        "name": "active_emails!",
+        "type_info": "TextArray"
+      },
+      {
+        "ordinal": 4,
+        "name": "title",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "start_date",
+        "type_info": "Date"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      true,
+      null,
+      null,
+      null,
+      false,
+      false
+    ]
+  },
+  "hash": "e40719ee46ff23969016479a96837b8fcf099de796a455d8cd3be805b19de31d"
+}
